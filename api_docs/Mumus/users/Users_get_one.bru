@@ -1,0 +1,48 @@
+meta {
+  name: Users_get_one
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/users/1
+  body: none
+  auth: none
+}
+
+tests {
+  test("res.status should be 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("res.body should have id_usuario", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("id_usuario");
+    expect(data.id_usuario).to.equal(1);
+  });
+  
+  test("res.body should have nombre", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("nombre");
+    expect(data.nombre).to.equal("Daniela Ivette Nava Miranda");
+  });
+  
+  test("res.body should have email", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("email");
+    expect(data.email).to.equal("dev.nino@ninoxit.me");
+  });
+  
+  test("res.body should have contraseña", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("contraseña");
+    expect(data.contraseña).to.equal("mirinda12345678");
+  });
+  
+  test("res.body should have fecha_creacion", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("fecha_creacion");
+    expect(data.fecha_creacion).to.equal("2024-12-13T17:36:43.000Z");
+  });
+  
+}

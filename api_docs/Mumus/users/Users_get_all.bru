@@ -1,0 +1,38 @@
+meta {
+  name: Users_get_all
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/users/
+  body: none
+  auth: none
+}
+
+tests {
+  test("res.status should be 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("res.body should be an array", function() {
+    const data = res.getBody();
+    expect(Array.isArray(data)).to.be.true;
+  });
+  
+  test("res.body should not be empty", function() {
+    const data = res.getBody();
+    expect(data.length).to.be.greaterThan(0);
+  });
+  
+  test("First user should have expected properties", function() {
+    const data = res.getBody();
+    const firstUser = data[0];
+    expect(firstUser).to.have.property("id_usuario");
+    expect(firstUser).to.have.property("nombre");
+    expect(firstUser).to.have.property("email");
+    expect(firstUser).to.have.property("contraseña");
+    expect(firstUser).to.have.property("fecha_creacion");
+  });
+  
+}
